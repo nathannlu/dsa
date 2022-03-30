@@ -862,7 +862,7 @@ const onMint = async (count) => {
 	}
 
 	// Public sale mint
-	if (false) {
+	if (isPublicSaleOpen) {
 		contract.methods
 			.mint(count)
 			.send({ from: account, value: cost * count }, (err) => {
@@ -879,7 +879,7 @@ const onMint = async (count) => {
 	}
 
 	// Presale mint
-	else if (true) {
+	else if (isPresaleOpen) {
 		const whitelist = await fetchWhitelist(contractAddress)
 		console.log(whitelist.data.getContract.nftCollection.whitelist)
 
@@ -890,6 +890,7 @@ const onMint = async (count) => {
 			mintCount
 		);
 	}
+
 };
 
 // Load Ethereum in browser
@@ -942,7 +943,7 @@ const init = async () => {
 	input.min = 1
 	input.max = maxPerMint
 	input.style.height = "48px"
-	input.style.width = "30px"
+	input.style.width = "48px"
 	input.addEventListener("change", e => {
 		mintCount = e.target.value
 	})
