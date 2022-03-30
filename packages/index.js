@@ -720,6 +720,7 @@ const getPublicContractVariables = async (contractAddress) => {
 
 	try {
 		const contract = await retrieveContract(contractAddress);
+		console.log(contract)
 
 		const balance = await window.web3.eth.getBalance(contractAddress);
 		const balanceInEth = window.web3.utils.fromWei(balance);
@@ -904,6 +905,14 @@ const loadWeb3 = async () => {
 
 // Initialization
 const init = async () => {
+	// Fetch button
+	let elements = document.getElementsByTagName("ambition-button");
+	console.log(elements[0]);
+	const ambitionButton = elements[0];
+
+	// Set smart contract address
+	contractAddress = ambitionButton.getAttribute("address")
+
 	// Load web3 & grab states
 	await loadWeb3();
 	const {
@@ -913,13 +922,6 @@ const init = async () => {
 		totalSupply
 	} = await getPublicContractVariables(contractAddress)
 
-	// Fetch button
-	let elements = document.getElementsByTagName("ambition-button");
-	console.log(elements[0]);
-	const ambitionButton = elements[0];
-	
-	// Set smart contract address
-	contractAddress = ambitionButton.getAttribute("address")
 
 	// Base button styles
 	const button = document.createElement("button")
@@ -955,5 +957,7 @@ const init = async () => {
 	ambitionButton.append(button)
 	ambitionButton.append(input)
 	ambitionButton.append(div)
+
+	console.log("Ambition button initialized")
 };
 init();
