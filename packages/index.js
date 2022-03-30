@@ -691,11 +691,12 @@ const abi = [
 	},
 ];
 
+
 // Constants
 const INITIAL_MINT_COUNT = 1;
 
 // Globals
-let account, mintCount = INITIAL_MINT_COUNT;
+let account, contractAddress, mintCount = INITIAL_MINT_COUNT;
 
 // Contract
 const retrieveContract = async (contractAddress) => {
@@ -842,7 +843,6 @@ const presaleMint = async (price, contractAddress, whitelist, count = 1) => {
 
 
 // Minting function
-const contractAddress = "0x614F28e4C336E744272C57D22e29d3cf61251D97";
 const onMint = async (count) => {
 	const contract = await retrieveContract(contractAddress);
 
@@ -917,6 +917,9 @@ const init = async () => {
 	let elements = document.getElementsByTagName("ambition-button");
 	console.log(elements[0]);
 	const ambitionButton = elements[0];
+	
+	// Set smart contract address
+	contractAddress = ambitionButton.getAttribute("address")
 
 	// Base button styles
 	const button = document.createElement("button")
@@ -952,13 +955,5 @@ const init = async () => {
 	ambitionButton.append(button)
 	ambitionButton.append(input)
 	ambitionButton.append(div)
-
-
-
-
-	// Get meta tag
-	const asd = document.head.querySelector(
-		"[property~=ambition-contract-abi][content]"
-	).content;
 };
 init();
